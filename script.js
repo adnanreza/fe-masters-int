@@ -8,5 +8,14 @@ function reverseString(str) {
     return str.split("").reverse().join("");
 }
 
+function reverseString2(str){
+    let result = "";
+    for(let i=str.length-1; i>=0; i--){
+        result += str.charAt(i);
+    }
+    return result;
+}
+
 console.log("Original String: "+test);
 console.log("Reversed String: "+reverseString(test));
+console.log("Reversed String: "+reverseString2(test));
