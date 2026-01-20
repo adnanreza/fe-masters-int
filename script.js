@@ -6,6 +6,8 @@ function reverseString(str) {
     //Reverse the array
     //Join the array back char by char to get a reversed version of og str
     return str.split("").reverse().join("");
+    //alternate version
+    //return Array.from(str).reverse().join("");
 }
 
 function reverseString2(str){
