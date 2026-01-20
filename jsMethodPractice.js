@@ -77,8 +77,33 @@ const inputD = document.getElementById('searchInputD');
 const inputT = document.getElementById('searchInputT');
 
 inputD.addEventListener('input', (e) => {
+  console.log('debouncer activated')
   debouncedSearch(e.target.value);
 });
 inputT.addEventListener('input', (e) => {
   throttledSearch(e.target.value);
 });
+
+// Create a function to move an element. The function arguments are,
+// distance, duration, and the element to move.
+
+function moveElement(distance, duration, element){
+    const start = performance.now();
+    
+    function move(currentTime){
+        const elapsed = currentTime - start;
+        const progress = elapsed / duration;
+        const amountToMove = progress * distance;
+
+        element.style.transform = `translateX(${amountToMove}px)`;
+
+        if(amountToMove < distance) {
+            requestAnimationFrame(move);
+        }
+    }
+
+    requestAnimationFrame(move);
+}
+
+//move the input 100px over 1s
+moveElement(100, 1000, inputD);
