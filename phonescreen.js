@@ -46,3 +46,29 @@ const foodData = [
 
 
 /** YOUR CODE BELOW **/
+
+class Foods{
+    constructor(root, data){
+        this.rootElem = root;
+        this.dataArray = data;
+    }
+    renderItems() {
+        this.rootElem.addEventListener('click', (e)=>{
+            e.target.remove();
+        })
+        let result = "";
+        this.dataArray.map(foodItem => {
+            let htmlElem = '<div>' + foodItem.image + '-' + foodItem.name + '</div>'
+            result += htmlElem;
+        });
+        this.rootElem.innerHTML = result;
+        //alternate way
+        this.dataArray.map(foodItem => {
+            const div = document.createElement('div');
+            div.innerText = foodItem.image + ' ' + foodItem.name;
+            this.rootElem.appendChild(div);
+        })
+    }
+}
+let food = new Foods(rootElement, foodData);
+food.renderItems();
