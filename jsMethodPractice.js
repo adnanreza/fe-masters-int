@@ -101,9 +101,45 @@ function moveElement(distance, duration, element){
             requestAnimationFrame(move);
         }
     }
-
     requestAnimationFrame(move);
 }
 
 //move the input 100px over 1s
 moveElement(100, 1000, inputD);
+
+// We have two identical DOM trees, A and B. For DOM tree A, we have
+// the location of an element. Create a function to find that same element
+// in tree B.
+
+function reversePath(element, root){
+    // Phase 1: Walk up and record the path
+    const path = [];
+    let pointer = element;
+
+    // Move up till we hit the root
+    while(pointer.parent){
+        const parent = pointer.parent;
+        const index = Array.from(parent.children.indexOf(pointer)); // which child number am i in my parent node
+        path.push(index);
+        pointer = parent;
+    }
+
+    // Phase 2: Walk down in Tree B
+    pointer = root; // Start at Tree B's root
+
+    // Replay the path in reverse
+    while(path.length){
+        pointer = pointer.children[path.pop()];
+    }
+    return pointer;
+}
+
+// Test reversePath()
+const rootA = document.getElementById("rootA");
+const rootB = document.getElementById("rootB");
+
+const targetA = rootA.querySelector("span");
+const result = reversePath(targetA, rootB);
+
+console.log(result.textContent); // "Target B"
+console.log(result.tagName);     // "SPAN"
